@@ -9,7 +9,13 @@
 import UIKit
 
 class DetailsViewController: UIViewController {
-
+    let screen = DetailsView()
+    var details: Results?
+    
+    override func loadView() {
+        self.view = screen
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         self.title = "Details"
@@ -17,4 +23,19 @@ class DetailsViewController: UIViewController {
         self.navigationController?.navigationBar.barTintColor = UIColor(named: "1dblackCustom")
         self.navigationController?.navigationBar.titleTextAttributes = [.foregroundColor: UIColor(named: "whiteCustom")!]
     }
+    
+    override func viewDidLayoutSubviews() {
+        mountDetails()
+    }
+    
+    func mountDetails(){
+        guard let imageUrl = URL(string: "\(EndPoints.baseImageUrl.rawValue)\(details?.posterPath)") else{return}
+        screen.imageCoverView.load(url: imageUrl)
+        screen.movieTitle.text = details?.originalTitle
+        screen.releaseDateTextLabel.text = details?.releaseDate
+        screen.genreTextLabel.text = "Sem"//details?.genreIDS.first
+        screen.overviewTextLabel.text = details?.overview
+    }
+    
+    
 }

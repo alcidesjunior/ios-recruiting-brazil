@@ -69,6 +69,12 @@ extension MoviesViewController: UICollectionViewDelegateFlowLayout, UICollection
         return CGSize(width: width/2.14, height: width/1.4)
     }
     
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        let detailsController = DetailsViewController()
+        detailsController.details = self.movies[indexPath.item]
+        self.navigationController?.pushViewController(detailsController, animated: true)
+    }
+    
     
 }
 

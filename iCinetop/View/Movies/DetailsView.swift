@@ -12,6 +12,8 @@ import SnapKit
 
 class DetailsView: UIView {
     
+    lazy var safeArea = self.layoutMarginsGuide
+    
     lazy var activityIndicator:UIActivityIndicatorView = {
         let view = UIActivityIndicatorView()
         return view
@@ -24,17 +26,20 @@ class DetailsView: UIView {
         return view
     }()
     
-    var imageCover = UIImage()
+    lazy var contentView: UIView = {
+        let view = UIView(frame: .zero)
+        return view
+    }()
     
     lazy var imageCoverView: UIImageView = {
         let view = UIImageView(frame: .zero)
-        view.image = imageCover
         return view
     }()
     
     lazy var movieTitle: UILabel = {
         let view = UILabel(frame: .zero)
         view.font = UIFont.boldSystemFont(ofSize: 30)
+        view.text = "Bateria"
         return view
     }()
     
@@ -47,7 +52,8 @@ class DetailsView: UIView {
     
     lazy var releaseDateTextLabel: UILabel = {
         let view = UILabel(frame: .zero)
-        view.font = UIFont.boldSystemFont(ofSize: 15)
+        view.font = UIFont.systemFont(ofSize: 15)
+        view.text = "2019"
         return view
     }()
     
@@ -60,13 +66,14 @@ class DetailsView: UIView {
     
     lazy var genreTextLabel: UILabel = {
         let view = UILabel(frame: .zero)
-        view.font = UIFont.boldSystemFont(ofSize: 15)
+        view.font = UIFont.systemFont(ofSize: 15)
+        view.text = "Action"
         return view
     }()
     
     lazy var overviewLabel: UILabel = {
         let view = UILabel(frame: .zero)
-        view.text = "Overview"
+        view.text = "Overview:"
         view.font = UIFont.boldSystemFont(ofSize: 15)
         return view
     }()
@@ -74,6 +81,7 @@ class DetailsView: UIView {
     lazy var overviewTextLabel: UILabel = {
         let view = UILabel(frame: .zero)
         view.font = UIFont.systemFont(ofSize: 15)
+        view.text = "resenha"
         return view
     }()
     
@@ -86,7 +94,12 @@ class DetailsView: UIView {
     override init(frame: CGRect) {
         super.init(frame: frame)
         setupView()
-        
+        self.imageCoverView.image = UIImage(named: "qualquer")
+        self.imageCoverView.layer.masksToBounds = true
+        self.imageCoverView.clipsToBounds = true
+//        self.contentView.backgroundColor = .blue
+//        self.scrollView.backgroundColor = .systemPink
+        self.movieTitle.textAlignment = .center
     }
     
     required init?(coder: NSCoder) {
@@ -97,62 +110,81 @@ class DetailsView: UIView {
 extension DetailsView: CodeView{
     func buildViewHierarchy() {
         self.addSubview(scrollView)
-        self.scrollView.addSubview(imageCoverView)
-        self.scrollView.addSubview(movieTitle)
-        self.scrollView.addSubview(releaseDateLabel)
-        self.scrollView.addSubview(releaseDateTextLabel)
-        self.scrollView.addSubview(genresLabel)
-        self.scrollView.addSubview(genreTextLabel)
-        self.scrollView.addSubview(overviewLabel)
-        self.scrollView.addSubview(overviewTextLabel)
+        self.scrollView.addSubview(contentView)
+        self.contentView.addSubview(imageCoverView)
+        self.contentView.addSubview(movieTitle)
+        self.contentView.addSubview(releaseDateLabel)
+        self.contentView.addSubview(releaseDateTextLabel)
+        self.contentView.addSubview(genresLabel)
+        self.contentView.addSubview(genreTextLabel)
+        self.contentView.addSubview(overviewLabel)
+        self.contentView.addSubview(overviewTextLabel)
         self.addSubview(activityIndicator)
     }
     
     func setupConstraints() {
         
-        activityIndicator.snp.makeConstraints{ (make) in
-            make.centerX.equalToSuperview()
-            make.centerY.equalToSuperview()
-        }
-        
         scrollView.snp.makeConstraints { (make) in
             make.edges.equalToSuperview()
         }
         
+        contentView.snp.makeConstraints { (make) in
+            make.top.equalToSuperview()
+            make.left.equalToSuperview()
+            make.right.equalToSuperview()
+            make.bottom.equalToSuperview()
+            make.height.equalToSuperview()
+            make.width.equalToSuperview()
+        }
+        
         imageCoverView.snp.makeConstraints { (make) in
-            make.top.left.right.equalTo(8)
+            make.top.equalToSuperview().offset(8)
+            make.left.equalToSuperview().offset(8)
+            make.right.equalToSuperview().inset(8)
         }
         
         movieTitle.snp.makeConstraints { (make) in
-            make.top.equalTo(imageCoverView.snp.bottom).inset(8)
-            make.centerY.equalToSuperview()
+            make.top.equalTo(imageCoverView.snp.bottom).offset(8)
+            make.left.equalToSuperview().offset(8)
+            make.right.equalToSuperview().inset(8)
         }
         
         releaseDateLabel.snp.makeConstraints { (make) in
-            make.top.equalTo(movieTitle.snp.bottom).inset(8)
-            make.left.equalToSuperview().offset(8)
+            make.top.equalTo(movieTitle.snp.bottom).offset(16)
+            make.left.equalTo(8)
         }
         
         releaseDateTextLabel.snp.makeConstraints { (make) in
-            make.top.equalTo(releaseDateLabel.snp.bottom).offset(4)
-            make.left.equalToSuperview().offset(8)
+            make.top.equalTo(releaseDateLabel.snp.bottomMargin).offset(8)
+            make.left.equalTo(8)
         }
         
         genresLabel.snp.makeConstraints { (make) in
-            make.top.equalTo(movieTitle.snp.bottom).inset(8)
-            make.centerY.equalTo(releaseDateLabel.snp.centerY)
-            make.height.equalTo(20)
+            make.top.equalTo(releaseDateTextLabel.snp.bottom)
+            make.left.equalTo(8)
         }
         
-        genresLabel.snp.makeConstraints { (make) in
-            make.top.equalTo(genresLabel.snp.bottom).inset(8)
-            make.centerY.equalTo(releaseDateTextLabel.snp.centerY)
-            make.height.equalTo(20)
+        genreTextLabel.snp.makeConstraints { (make) in
+            make.top.equalTo(genresLabel.snp.bottom)
+            make.left.equalTo(8)
         }
         
         overviewLabel.snp.makeConstraints { (make) in
-            make.top.equalTo(releaseDateTextLabel).offset(8)
-            make.left.right.equalToSuperview().offset(8)
+            make.top.equalTo(genreTextLabel.snp.bottom)
+            make.left.equalTo(8)
+        }
+       
+        overviewTextLabel.snp.makeConstraints { (make) in
+            make.top.equalTo(overviewLabel.snp.bottom)
+            make.left.equalTo(8)
+        }
+        
+        
+       
+        
+        activityIndicator.snp.makeConstraints{ (make) in
+            make.centerX.equalToSuperview()
+            make.centerY.equalToSuperview()
         }
     }
     

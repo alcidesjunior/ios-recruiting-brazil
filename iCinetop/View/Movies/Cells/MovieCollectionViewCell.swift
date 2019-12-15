@@ -40,7 +40,6 @@ class MovieCollectionViewCell: UICollectionViewCell {
         let view = UILabel(frame: .zero)
         view.font = UIFont.boldSystemFont(ofSize: 18)
         view.textColor = UIColor(named: "whiteCustom")
-        view.numberOfLines = 0
         return view
     }()
     
@@ -50,6 +49,7 @@ class MovieCollectionViewCell: UICollectionViewCell {
         self.movieImageView.clipsToBounds = true
         self.movieImageView.layer.cornerRadius = 8
         self.viewCell.layer.cornerRadius = 8
+        self.movieTitle.numberOfLines = 0
     }
     
     override init(frame: CGRect) {
@@ -60,6 +60,7 @@ class MovieCollectionViewCell: UICollectionViewCell {
         self.movieImageView.addSubview(favoriteButton)
         self.movieImageView.addSubview(titleCover)
         self.titleCover.addSubview(movieTitle)
+        self.movieTitle.textAlignment = .center
         
         viewCell.snp.makeConstraints { (make) in
             make.top.equalToSuperview()
@@ -82,12 +83,14 @@ class MovieCollectionViewCell: UICollectionViewCell {
         titleCover.snp.makeConstraints { (make) in
             make.bottom.equalToSuperview()
             make.left.right.equalToSuperview()
-            make.height.equalTo(viewCell.snp.height).multipliedBy(0.3)
+            make.height.equalTo(viewCell.snp.height).multipliedBy(0.23)
         }
         
         movieTitle.snp.makeConstraints { (make) in
-            make.top.equalTo(16)
-            make.centerY.equalToSuperview()
+            make.top.equalToSuperview().offset(8)
+            make.left.equalToSuperview().offset(8)
+            make.right.equalToSuperview().inset(8)
+            make.bottom.equalToSuperview().inset(8)
         }
         
         
