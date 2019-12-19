@@ -12,6 +12,11 @@ class MovieCollectionViewCell: UICollectionViewCell {
     
     lazy var safeArea = self.layoutMarginsGuide
     
+    lazy var activityIndicatorToImage:UIActivityIndicatorView = {
+        let view = UIActivityIndicatorView()
+        return view
+    }()
+    
     lazy var viewCell: UIView = {
         let view = UIView(frame: .zero)
         return view
@@ -58,6 +63,7 @@ class MovieCollectionViewCell: UICollectionViewCell {
         self.addSubview(viewCell)
         self.viewCell.addSubview(movieImageView)
         self.movieImageView.addSubview(favoriteButton)
+        self.movieImageView.addSubview(activityIndicatorToImage)
         self.movieImageView.addSubview(titleCover)
         self.titleCover.addSubview(movieTitle)
         self.movieTitle.textAlignment = .center
@@ -71,6 +77,11 @@ class MovieCollectionViewCell: UICollectionViewCell {
         
         movieImageView.snp.makeConstraints { (make) in
             make.edges.equalTo(viewCell)
+        }
+        
+        activityIndicatorToImage.snp.makeConstraints { (make) in
+            make.centerX.equalToSuperview()
+            make.centerY.equalToSuperview()
         }
         
         favoriteButton.snp.makeConstraints { (make) in

@@ -19,6 +19,11 @@ class DetailsView: UIView {
         return view
     }()
     
+    lazy var activityIndicatorToImage:UIActivityIndicatorView = {
+        let view = UIActivityIndicatorView()
+        return view
+    }()
+    
     lazy var scrollView: UIScrollView = {
         let view = UIScrollView(frame: .zero)
         view.bounces = true
@@ -39,7 +44,6 @@ class DetailsView: UIView {
     lazy var movieTitle: UILabel = {
         let view = UILabel(frame: .zero)
         view.font = UIFont.boldSystemFont(ofSize: 30)
-        view.text = "Bateria"
         return view
     }()
     
@@ -53,7 +57,6 @@ class DetailsView: UIView {
     lazy var releaseDateTextLabel: UILabel = {
         let view = UILabel(frame: .zero)
         view.font = UIFont.systemFont(ofSize: 15)
-        view.text = "2019"
         return view
     }()
     
@@ -67,7 +70,6 @@ class DetailsView: UIView {
     lazy var genreTextLabel: UILabel = {
         let view = UILabel(frame: .zero)
         view.font = UIFont.systemFont(ofSize: 15)
-        view.text = "Action"
         return view
     }()
     
@@ -81,12 +83,11 @@ class DetailsView: UIView {
     lazy var overviewTextLabel: UILabel = {
         let view = UILabel(frame: .zero)
         view.font = UIFont.systemFont(ofSize: 15)
-        view.text = "resenha"
         return view
     }()
     
     override func layoutSubviews() {
-        self.imageCoverView.layer.cornerRadius = 8
+        self.overviewTextLabel.lineBreakMode = .byWordWrapping
         self.overviewTextLabel.numberOfLines = 0
         
     }
@@ -94,10 +95,11 @@ class DetailsView: UIView {
     override init(frame: CGRect) {
         super.init(frame: frame)
         setupView()
-        self.imageCoverView.image = UIImage(named: "qualquer")
         self.imageCoverView.layer.masksToBounds = true
         self.imageCoverView.clipsToBounds = true
+        self.imageCoverView.backgroundColor = .gray
         self.movieTitle.textAlignment = .center
+        
     }
     
     required init?(coder: NSCoder) {
@@ -110,6 +112,7 @@ extension DetailsView: CodeView{
         self.addSubview(scrollView)
         self.scrollView.addSubview(contentView)
         self.contentView.addSubview(imageCoverView)
+        self.imageCoverView.addSubview(activityIndicatorToImage)
         self.contentView.addSubview(movieTitle)
         self.contentView.addSubview(releaseDateLabel)
         self.contentView.addSubview(releaseDateTextLabel)
@@ -127,18 +130,21 @@ extension DetailsView: CodeView{
         }
         
         contentView.snp.makeConstraints { (make) in
-            make.top.equalToSuperview()
-            make.left.equalToSuperview()
-            make.right.equalToSuperview()
-            make.bottom.equalToSuperview()
-            make.height.equalToSuperview()
+            make.centerX.equalToSuperview()
+            make.centerY.equalToSuperview()
             make.width.equalToSuperview()
+            make.bottom.equalToSuperview()
         }
         
         imageCoverView.snp.makeConstraints { (make) in
-            make.top.equalToSuperview().offset(8)
-            make.left.equalToSuperview().offset(8)
-            make.right.equalToSuperview().inset(8)
+            make.top.equalToSuperview()
+            make.left.equalToSuperview()
+            make.right.equalToSuperview()
+        }
+        
+        activityIndicatorToImage.snp.makeConstraints { (make) in
+            make.centerX.equalToSuperview()
+            make.centerY.equalToSuperview()
         }
         
         movieTitle.snp.makeConstraints { (make) in
@@ -174,7 +180,9 @@ extension DetailsView: CodeView{
        
         overviewTextLabel.snp.makeConstraints { (make) in
             make.top.equalTo(overviewLabel.snp.bottom)
+            make.right.equalToSuperview()
             make.left.equalTo(8)
+            make.bottom.equalToSuperview()
         }
         
         activityIndicator.snp.makeConstraints{ (make) in
