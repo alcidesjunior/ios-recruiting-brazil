@@ -99,6 +99,8 @@ class DetailsView: UIView {
         self.imageCoverView.clipsToBounds = true
         self.imageCoverView.backgroundColor = .gray
         self.movieTitle.textAlignment = .center
+        self.movieTitle.numberOfLines = 0
+        self.overviewTextLabel.textAlignment = .justified
         
     }
     
@@ -180,9 +182,9 @@ extension DetailsView: CodeView{
        
         overviewTextLabel.snp.makeConstraints { (make) in
             make.top.equalTo(overviewLabel.snp.bottom)
-            make.right.equalToSuperview()
+            make.right.equalToSuperview().inset(8)
             make.left.equalTo(8)
-            make.bottom.equalToSuperview()
+            make.bottom.equalTo(4).inset(8)
         }
         
         activityIndicator.snp.makeConstraints{ (make) in

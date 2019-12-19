@@ -76,7 +76,7 @@ extension MoviesViewController: UICollectionViewDelegateFlowLayout, UICollection
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         let detailsController = DetailsViewController()
-        detailsController.details = self.movies[indexPath.item]
+        detailsController.movieID = self.movies[indexPath.item].id
         self.navigationController?.pushViewController(detailsController, animated: true)
     }
     

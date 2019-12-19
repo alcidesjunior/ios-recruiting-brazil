@@ -29,7 +29,7 @@ class MovieCollectionViewCell: UICollectionViewCell {
     
     lazy var favoriteButton: UIButton = {
         let view = UIButton(type: .custom) as UIButton
-        let icon = UIImage(named: "iconStar")
+        let icon = UIImage(named: "iconStarFill")
         view.setImage(icon, for: .normal)
         view.imageEdgeInsets = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
         return view
