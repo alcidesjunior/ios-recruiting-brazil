@@ -14,6 +14,12 @@ class DetailsViewController: UIViewController {
     
     override func loadView() {
         self.view = screen
+//        mountDetails()
+        print("loadView")
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+            self.mountDetails()
     }
     
     override func viewDidLoad() {
@@ -22,19 +28,17 @@ class DetailsViewController: UIViewController {
         self.view.backgroundColor = UIColor(named: "whiteCustom")
         self.navigationController?.navigationBar.barTintColor = UIColor(named: "1dblackCustom")
         self.navigationController?.navigationBar.titleTextAttributes = [.foregroundColor: UIColor(named: "whiteCustom")!]
+        print("viewDidLoad")
+        print(details)
     }
     
-    override func viewDidLayoutSubviews() {
-        mountDetails()
-    }
-    
-    func mountDetails(){
+    private func mountDetails(){
         guard let imageUrl = URL(string: "\(EndPoints.baseImageUrl.rawValue)\(details?.posterPath)") else{return}
-        screen.imageCoverView.load(url: imageUrl)
-        screen.movieTitle.text = details?.originalTitle
-        screen.releaseDateTextLabel.text = details?.releaseDate
-        screen.genreTextLabel.text = "Sem"//details?.genreIDS.first
-        screen.overviewTextLabel.text = details?.overview
+        self.screen.imageCoverView.load(url: imageUrl)
+        self.screen.movieTitle.text = self.details?.originalTitle
+        self.screen.releaseDateTextLabel.text = self.details?.releaseDate
+        self.screen.genreTextLabel.text = "Sem"//details?.genreIDS.first
+        self.screen.overviewTextLabel.text = details?.overview
     }
     
     

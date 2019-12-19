@@ -59,7 +59,10 @@ extension MoviesViewController: UICollectionViewDelegateFlowLayout, UICollection
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "movieCell", for: indexPath) as! MovieCollectionViewCell
         cell.movieTitle.text = self.movies[indexPath.item].originalTitle
         guard let imageUrl = URL(string: "\(EndPoints.baseImageUrl.rawValue)\(self.movies[indexPath.item].posterPath)") else{return cell}
-        cell.movieImageView.load(url: imageUrl)
+        DispatchQueue.main.async {
+            
+            cell.movieImageView.load(url: imageUrl)
+        }
         return cell
     }
     

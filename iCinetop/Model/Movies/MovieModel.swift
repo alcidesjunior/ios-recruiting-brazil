@@ -23,6 +23,7 @@ class MovieModel{
         let url = "\(self.moviesUrl)\(EndPoints.apiKey.rawValue)"
         Just.get(url){ (result) in
             guard let data = result.content else {return}
+            
             do{
                 let decoder = JSONDecoder()
                 switch result.statusCode{

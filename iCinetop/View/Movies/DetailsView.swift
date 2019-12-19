@@ -90,15 +90,13 @@ class DetailsView: UIView {
         self.overviewTextLabel.numberOfLines = 0
         
     }
-    //chamar o setupView no init
+    
     override init(frame: CGRect) {
         super.init(frame: frame)
         setupView()
         self.imageCoverView.image = UIImage(named: "qualquer")
         self.imageCoverView.layer.masksToBounds = true
         self.imageCoverView.clipsToBounds = true
-//        self.contentView.backgroundColor = .blue
-//        self.scrollView.backgroundColor = .systemPink
         self.movieTitle.textAlignment = .center
     }
     
@@ -178,9 +176,6 @@ extension DetailsView: CodeView{
             make.top.equalTo(overviewLabel.snp.bottom)
             make.left.equalTo(8)
         }
-        
-        
-       
         
         activityIndicator.snp.makeConstraints{ (make) in
             make.centerX.equalToSuperview()
