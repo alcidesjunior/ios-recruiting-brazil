@@ -56,6 +56,5 @@ class FavoriteModel{
             print("Could not save \(error) \(error.userInfo)")
             completion(error as Error as! Result<[NSManagedObject], Error>)
         }
-        
     }
 }
