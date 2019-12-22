@@ -12,6 +12,11 @@ class MovieCollectionViewCell: UICollectionViewCell {
     
     lazy var safeArea = self.layoutMarginsGuide
     
+    lazy var activityIndicatorToImage:UIActivityIndicatorView = {
+        let view = UIActivityIndicatorView()
+        return view
+    }()
+    
     lazy var viewCell: UIView = {
         let view = UIView(frame: .zero)
         return view
@@ -24,7 +29,7 @@ class MovieCollectionViewCell: UICollectionViewCell {
     
     lazy var favoriteButton: UIButton = {
         let view = UIButton(type: .custom) as UIButton
-        let icon = UIImage(named: "iconStar")
+        let icon = UIImage(named: "iconStarFill")
         view.setImage(icon, for: .normal)
         view.imageEdgeInsets = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
         return view
@@ -40,7 +45,6 @@ class MovieCollectionViewCell: UICollectionViewCell {
         let view = UILabel(frame: .zero)
         view.font = UIFont.boldSystemFont(ofSize: 18)
         view.textColor = UIColor(named: "whiteCustom")
-        view.numberOfLines = 0
         return view
     }()
     
@@ -48,8 +52,9 @@ class MovieCollectionViewCell: UICollectionViewCell {
         self.movieTitle.numberOfLines = 0
         self.movieImageView.layer.masksToBounds = true
         self.movieImageView.clipsToBounds = true
-        self.movieImageView.layer.cornerRadius = 8
-        self.viewCell.layer.cornerRadius = 8
+//        self.movieImageView.layer.cornerRadius = 8
+//        self.viewCell.layer.cornerRadius = 8
+        self.movieTitle.numberOfLines = 0
     }
     
     override init(frame: CGRect) {
@@ -58,9 +63,11 @@ class MovieCollectionViewCell: UICollectionViewCell {
         self.addSubview(viewCell)
         self.viewCell.addSubview(movieImageView)
         self.movieImageView.addSubview(favoriteButton)
+        self.movieImageView.addSubview(activityIndicatorToImage)
         self.movieImageView.addSubview(titleCover)
         self.titleCover.addSubview(movieTitle)
-        
+        self.movieTitle.textAlignment = .center
+        self.favoriteButton.isHidden = true
         viewCell.snp.makeConstraints { (make) in
             make.top.equalToSuperview()
             make.left.equalToSuperview()
@@ -70,6 +77,11 @@ class MovieCollectionViewCell: UICollectionViewCell {
         
         movieImageView.snp.makeConstraints { (make) in
             make.edges.equalTo(viewCell)
+        }
+        
+        activityIndicatorToImage.snp.makeConstraints { (make) in
+            make.centerX.equalToSuperview()
+            make.centerY.equalToSuperview()
         }
         
         favoriteButton.snp.makeConstraints { (make) in
@@ -82,12 +94,14 @@ class MovieCollectionViewCell: UICollectionViewCell {
         titleCover.snp.makeConstraints { (make) in
             make.bottom.equalToSuperview()
             make.left.right.equalToSuperview()
-            make.height.equalTo(viewCell.snp.height).multipliedBy(0.3)
+            make.height.equalTo(viewCell.snp.height).multipliedBy(0.23)
         }
         
         movieTitle.snp.makeConstraints { (make) in
-            make.top.equalTo(16)
-            make.centerY.equalToSuperview()
+            make.top.equalToSuperview().offset(8)
+            make.left.equalToSuperview().offset(8)
+            make.right.equalToSuperview().inset(8)
+            make.bottom.equalToSuperview().inset(8)
         }
         
         

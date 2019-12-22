@@ -1,5 +1,5 @@
 //
-//  Movie.swift
+//  Favorite.swift
 //  iCinetop
 //
 //  Created by Alcides Junior on 14/12/19.
@@ -9,21 +9,9 @@
 import UIKit
 import SnapKit
 
-final class MovieView: UIView {
-    lazy var safeArea = self.layoutMarginsGuide
-    
-    lazy var activityIndicator:UIActivityIndicatorView = {
-        let view = UIActivityIndicatorView()
-        return view
-    }()
-    
-    lazy var collectionView: UICollectionView = {
-        let layout = UICollectionViewFlowLayout()
-        let view = UICollectionView(frame: .zero, collectionViewLayout: layout)
-        layout.scrollDirection = .vertical
-        layout.minimumLineSpacing = 16
-        layout.minimumInteritemSpacing = 8
-        layout.sectionInset = UIEdgeInsets(top: 16, left: 8, bottom: 8, right: 8)
+final class FavoriteView: UIView {
+    lazy var tableView: UITableView = {
+        let view = UITableView(frame: .zero)
         return view
     }()
     
@@ -39,10 +27,6 @@ final class MovieView: UIView {
         return view
     }()
     
-    func registerCells(){
-        collectionView.register(MovieCollectionViewCell.self, forCellWithReuseIdentifier: "movieCell")
-    }
-    
     override init(frame: CGRect) {
         super.init(frame: frame)
         setupView()
@@ -51,12 +35,16 @@ final class MovieView: UIView {
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
+    
+    
+    private func registerCell(){
+        tableView.register(FavoriteTableViewCell.self, forCellReuseIdentifier: "cell")
+    }
 }
 
-extension MovieView: CodeView{
+extension FavoriteView: CodeView{
     func buildViewHierarchy() {
-        self.addSubview(self.collectionView)
-        self.addSubview(self.activityIndicator)
+        self.addSubview(self.tableView)
         noResultsImageView.isHidden = true
         noResultsLabel.isHidden = true
         noResultsLabel.numberOfLines = 0
@@ -67,12 +55,8 @@ extension MovieView: CodeView{
     }
     
     func setupConstraints() {
-        
-        self.collectionView.snp.makeConstraints { (make) in
-            make.top.equalTo(safeArea.snp.top)
-            make.left.equalToSuperview()
-            make.right.equalToSuperview()
-            make.bottom.equalToSuperview()
+        tableView.snp.makeConstraints { (make) in
+            make.edges.equalToSuperview()
         }
         
         noResultsImageView.snp.makeConstraints { (make) in
@@ -89,15 +73,10 @@ extension MovieView: CodeView{
             make.centerX.equalToSuperview()
             
         }
-        
-        self.activityIndicator.snp.makeConstraints{ (make) in
-            make.centerX.equalToSuperview()
-            make.centerY.equalToSuperview()
-        }
     }
     
     func setupAdditionalConfiguration() {
-        registerCells()
+        registerCell()
     }
     
     

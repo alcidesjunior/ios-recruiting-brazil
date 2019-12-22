@@ -16,13 +16,14 @@ class MovieModel{
     init(){
         self.baseUrl = EndPoints.baseUrl.rawValue
         self.moviesUrl = "\(self.baseUrl)\(EndPoints.moviePopular.rawValue)"
-        self.detailsUrl = "\(self.moviesUrl)\(EndPoints.movieDetails)"
+        self.detailsUrl = "\(self.baseUrl)\(EndPoints.movieDetails.rawValue)"
     }
     
     func getAll(_ completion: @escaping (Result<Movie, Error>)->Void){
         let url = "\(self.moviesUrl)\(EndPoints.apiKey.rawValue)"
         Just.get(url){ (result) in
             guard let data = result.content else {return}
+            
             do{
                 let decoder = JSONDecoder()
                 switch result.statusCode{
@@ -48,7 +49,7 @@ class MovieModel{
     }
     
     func show(id: Int, completion: @escaping (Result<MovieDetail, Error>)->Void){
-        let url = "\(self.detailsUrl)/\(id)/\(EndPoints.apiKey)"
+        let url = "\(self.detailsUrl)/\(id)\(EndPoints.apiKey.rawValue)"
         Just.get(url){(result) in
            guard let data = result.content else {return}
             do{

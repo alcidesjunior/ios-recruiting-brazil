@@ -6,8 +6,6 @@
 //  Copyright © 2019 Alcides Junior. All rights reserved.
 //
 
-import Foundation
-// MARK: - Movie
 struct Movie: Codable {
     let page, totalResults, totalPages: Int
     let results: [Results]
@@ -28,9 +26,8 @@ struct Results: Codable {
     let posterPath: String
     let id: Int
     let adult: Bool
-    let backdropPath: String
-    let originalLanguage: OriginalLanguage
-    let originalTitle: String
+    let backdropPath: String?
+    let originalLanguage, originalTitle: String
     let genreIDS: [Int]
     let title: String
     let voteAverage: Double
@@ -51,10 +48,4 @@ struct Results: Codable {
         case overview
         case releaseDate = "release_date"
     }
-}
-
-enum OriginalLanguage: String, Codable {
-    case cn = "cn"
-    case en = "en"
-    case ja = "ja"
 }
