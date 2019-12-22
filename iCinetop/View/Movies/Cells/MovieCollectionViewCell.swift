@@ -52,8 +52,8 @@ class MovieCollectionViewCell: UICollectionViewCell {
         self.movieTitle.numberOfLines = 0
         self.movieImageView.layer.masksToBounds = true
         self.movieImageView.clipsToBounds = true
-        self.movieImageView.layer.cornerRadius = 8
-        self.viewCell.layer.cornerRadius = 8
+//        self.movieImageView.layer.cornerRadius = 8
+//        self.viewCell.layer.cornerRadius = 8
         self.movieTitle.numberOfLines = 0
     }
     
@@ -67,7 +67,7 @@ class MovieCollectionViewCell: UICollectionViewCell {
         self.movieImageView.addSubview(titleCover)
         self.titleCover.addSubview(movieTitle)
         self.movieTitle.textAlignment = .center
-        
+        self.favoriteButton.isHidden = true
         viewCell.snp.makeConstraints { (make) in
             make.top.equalToSuperview()
             make.left.equalToSuperview()

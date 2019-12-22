@@ -10,7 +10,7 @@ import Foundation
 import UIKit
 import SnapKit
 
-class DetailsView: UIView {
+final class DetailsView: UIView {
     
     lazy var safeArea = self.layoutMarginsGuide
     
@@ -44,6 +44,7 @@ class DetailsView: UIView {
     lazy var movieTitle: UILabel = {
         let view = UILabel(frame: .zero)
         view.font = UIFont.boldSystemFont(ofSize: 30)
+        view.textColor = UIColor(named: "blackCustom")
         return view
     }()
     
@@ -51,12 +52,14 @@ class DetailsView: UIView {
         let view = UILabel(frame: .zero)
         view.font = UIFont.boldSystemFont(ofSize: 15)
         view.text = "Release date:"
+        view.textColor = UIColor(named: "blackCustom")
         return view
     }()
     
     lazy var releaseDateTextLabel: UILabel = {
         let view = UILabel(frame: .zero)
         view.font = UIFont.systemFont(ofSize: 15)
+        view.textColor = UIColor(named: "blackCustom")
         return view
     }()
     
@@ -64,12 +67,14 @@ class DetailsView: UIView {
         let view = UILabel(frame: .zero)
         view.font = UIFont.boldSystemFont(ofSize: 15)
         view.text = "Genres:"
+        view.textColor = UIColor(named: "blackCustom")
         return view
     }()
     
     lazy var genreTextLabel: UILabel = {
         let view = UILabel(frame: .zero)
         view.font = UIFont.systemFont(ofSize: 15)
+        view.textColor = UIColor(named: "blackCustom")
         return view
     }()
     
@@ -77,12 +82,14 @@ class DetailsView: UIView {
         let view = UILabel(frame: .zero)
         view.text = "Overview:"
         view.font = UIFont.boldSystemFont(ofSize: 15)
+        view.textColor = UIColor(named: "blackCustom")
         return view
     }()
     
     lazy var overviewTextLabel: UILabel = {
         let view = UILabel(frame: .zero)
         view.font = UIFont.systemFont(ofSize: 15)
+        view.textColor = UIColor(named: "blackCustom")
         return view
     }()
     
@@ -101,6 +108,7 @@ class DetailsView: UIView {
         self.movieTitle.textAlignment = .center
         self.movieTitle.numberOfLines = 0
         self.overviewTextLabel.textAlignment = .justified
+        self.genreTextLabel.numberOfLines = 0
         
     }
     
@@ -173,6 +181,7 @@ extension DetailsView: CodeView{
         genreTextLabel.snp.makeConstraints { (make) in
             make.top.equalTo(genresLabel.snp.bottom)
             make.left.equalTo(8)
+            make.right.equalToSuperview().inset(8)
         }
         
         overviewLabel.snp.makeConstraints { (make) in

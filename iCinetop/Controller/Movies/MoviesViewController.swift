@@ -9,8 +9,12 @@
 import UIKit
 
 class MoviesViewController: UIViewController {
+    
     let screen = MovieView()
     var movies: [Results] = []
+    var filteredData: [Results] = []
+    let searchController = UISearchController(searchResultsController: nil)
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         self.title = "Movies"
@@ -19,10 +23,23 @@ class MoviesViewController: UIViewController {
         self.screen.collectionView.delegate = self
         self.screen.collectionView.dataSource = self
         self.screen.collectionView.backgroundColor = .white
+        //navigation
         self.navigationController?.navigationBar.barTintColor = UIColor(named: "1dblackCustom")
         self.navigationController?.navigationBar.titleTextAttributes = [.foregroundColor: UIColor(named: "whiteCustom")!]
         self.navigationController?.navigationBar.isTranslucent = false
         seedMovies()
+        FavoritesViewController.favTabDelegate = self
+        //setting searchbar
+        self.navigationItem.searchController = searchController
+        self.navigationItem.hidesSearchBarWhenScrolling = false
+        searchController.searchResultsUpdater = self
+        searchController.obscuresBackgroundDuringPresentation = false
+        searchController.searchBar.placeholder = "Search movies"
+        searchController.searchBar.searchTextField.tintColor = UIColor(named: "whiteCustom")
+        searchController.searchBar.searchTextField.textColor = UIColor(named: "whiteCustom")
+        searchController.delegate = self
+        searchController.searchBar.delegate = self
+         
     }
     
     func seedMovies(){
@@ -37,13 +54,12 @@ class MoviesViewController: UIViewController {
                     for item in movieResult.results{
                         self.movies.append(item)
                     }
+                    self.filteredData = self.movies
                     self.screen.collectionView.reloadData()
-//                    print(self.movies)
                 }
             case .failure(let error):
                 DispatchQueue.main.async {
                     self.screen.activityIndicator.stopAnimating()
-                    print(error)
                 }
             }
         }
@@ -52,14 +68,21 @@ class MoviesViewController: UIViewController {
 
 extension MoviesViewController: UICollectionViewDelegateFlowLayout, UICollectionViewDataSource{
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return self.movies.count
+        return self.filteredData.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "movieCell", for: indexPath) as! MovieCollectionViewCell
-        cell.movieTitle.text = self.movies[indexPath.item].originalTitle
+        
+        if FavoriteHelper.isFavorited(self.filteredData[indexPath.item].id){
+            cell.favoriteButton.isHidden = false
+        }else{
+            cell.favoriteButton.isHidden = true
+        }
+        
+        cell.movieTitle.text = self.filteredData[indexPath.item].originalTitle
         cell.activityIndicatorToImage.startAnimating()
-        guard let imageUrl = URL(string: "\(EndPoints.baseImageUrl.rawValue)\(self.movies[indexPath.item].posterPath)") else{return cell}
+        guard let imageUrl = URL(string: "\(EndPoints.baseImageUrl.rawValue)\(self.filteredData[indexPath.item].posterPath)") else{return cell}
         DispatchQueue.main.async {
             cell.movieImageView.load(url: imageUrl){(e) in
                 cell.activityIndicatorToImage.stopAnimating()
@@ -76,10 +99,68 @@ extension MoviesViewController: UICollectionViewDelegateFlowLayout, UICollection
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         let detailsController = DetailsViewController()
-        detailsController.movieID = self.movies[indexPath.item].id
+        detailsController.movieID = self.filteredData[indexPath.item].id
+        detailsController.favIconDelegate = self
+        detailsController.cellNumber = indexPath.item
         self.navigationController?.pushViewController(detailsController, animated: true)
+    }
+}
+
+extension MoviesViewController: FavDelegate{
+    func putFavIcon(equal: Bool, forCell: Int) {
+        if equal{
+            let cell = screen.collectionView.cellForItem(at: NSIndexPath(item: forCell, section: 0) as IndexPath) as! MovieCollectionViewCell
+            cell.favoriteButton.isHidden = false
+        }else{
+            let cell = screen.collectionView.cellForItem(at: NSIndexPath(item: forCell, section: 0) as IndexPath) as! MovieCollectionViewCell
+            cell.favoriteButton.isHidden = true
+        }
     }
     
     
 }
 
+extension MoviesViewController: FavTabDelegate{
+    func unFavMovie(movId: Int) {
+        var count = 0
+        for mov in self.filteredData{
+            if mov.id == movId{
+                if let targetCell = self.screen.collectionView.cellForItem(at: NSIndexPath(item: count, section: 0) as IndexPath) as? MovieCollectionViewCell {
+                
+                    targetCell.favoriteButton.isHidden = true
+                }
+                
+            }
+            count += 1
+        }
+    }
+}
+
+extension MoviesViewController: UISearchResultsUpdating, UISearchControllerDelegate, UISearchBarDelegate{
+    func updateSearchResults(for searchController: UISearchController) {
+        guard let searchBarText = searchController.searchBar.text else {return}
+        
+        if searchBarText.isEmpty || searchBarText.trimmingCharacters(in: .whitespacesAndNewlines) == ""{
+            filteredData = movies
+            self.screen.collectionView.isHidden = false
+            self.screen.noResultsImageView.isHidden = true
+            self.screen.noResultsLabel.isHidden = true
+        }else{
+            filteredData = movies.filter{(data)->Bool in
+                self.screen.collectionView.isHidden = false
+                self.screen.noResultsImageView.isHidden = true
+                self.screen.noResultsLabel.isHidden = true
+                return data.originalTitle.range(of: searchBarText, options: [ .caseInsensitive ]) != nil
+            }
+            if filteredData.count == 0{
+                self.screen.collectionView.isHidden = true
+                self.screen.noResultsImageView.isHidden = false
+                self.screen.noResultsLabel.isHidden = false
+                self.screen.noResultsLabel.text = "No results for \"\(searchBarText)\" "
+            }
+        }
+        self.screen.collectionView.reloadData()
+    }
+    
+    
+}

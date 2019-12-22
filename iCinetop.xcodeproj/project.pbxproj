@@ -8,6 +8,11 @@
 
 /* Begin PBXBuildFile section */
 		1A0969F523AC215C0001C827 /* FavoriteModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A0969F423AC215C0001C827 /* FavoriteModel.swift */; };
+		1A262B5F23AD925B00421ADD /* FavoriteHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A262B5E23AD925B00421ADD /* FavoriteHelper.swift */; };
+		1A262B6123AD996300421ADD /* FavDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A262B6023AD996300421ADD /* FavDelegate.swift */; };
+		1A262B6423ADAC7600421ADD /* FavoriteTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A262B6323ADAC7600421ADD /* FavoriteTableViewCell.swift */; };
+		1A8A241323AFFEE500C9337A /* Toast in Frameworks */ = {isa = PBXBuildFile; productRef = 1A8A241223AFFEE500C9337A /* Toast */; };
+		1AA5D55C23AE927900BBF4E0 /* FavTabDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1AA5D55B23AE927900BBF4E0 /* FavTabDelegate.swift */; };
 		1ABCA8CB23A5D7AA004CA7A4 /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 1ABCA8CA23A5D7AA004CA7A4 /* Default-568h@2x.png */; };
 		1AD7975423A5D3C4000E7149 /* +UIImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1AD7975323A5D3C4000E7149 /* +UIImageView.swift */; };
 		1AE7BD4923A5343F000EB469 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1AE7BD4823A5343F000EB469 /* AppDelegate.swift */; };
@@ -19,7 +24,7 @@
 		1AE7BD6E23A54F7F000EB469 /* FavoritesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1AE7BD6D23A54F7F000EB469 /* FavoritesViewController.swift */; };
 		1AE7BD7023A54F89000EB469 /* MoviesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1AE7BD6F23A54F89000EB469 /* MoviesViewController.swift */; };
 		1AE7BD7223A54FAB000EB469 /* MovieView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1AE7BD7123A54FAB000EB469 /* MovieView.swift */; };
-		1AE7BD7423A54FBC000EB469 /* Favorite.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1AE7BD7323A54FBC000EB469 /* Favorite.swift */; };
+		1AE7BD7423A54FBC000EB469 /* FavoriteView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1AE7BD7323A54FBC000EB469 /* FavoriteView.swift */; };
 		1AE7BD7723A54FFC000EB469 /* SnapKit in Frameworks */ = {isa = PBXBuildFile; productRef = 1AE7BD7623A54FFC000EB469 /* SnapKit */; };
 		1AE7BD7A23A550C8000EB469 /* Just in Frameworks */ = {isa = PBXBuildFile; productRef = 1AE7BD7923A550C8000EB469 /* Just */; };
 		1AE7BD7D23A551F6000EB469 /* CodeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1AE7BD7C23A551F6000EB469 /* CodeView.swift */; };
@@ -35,6 +40,10 @@
 
 /* Begin PBXFileReference section */
 		1A0969F423AC215C0001C827 /* FavoriteModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoriteModel.swift; sourceTree = "<group>"; };
+		1A262B5E23AD925B00421ADD /* FavoriteHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoriteHelper.swift; sourceTree = "<group>"; };
+		1A262B6023AD996300421ADD /* FavDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavDelegate.swift; sourceTree = "<group>"; };
+		1A262B6323ADAC7600421ADD /* FavoriteTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoriteTableViewCell.swift; sourceTree = "<group>"; };
+		1AA5D55B23AE927900BBF4E0 /* FavTabDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavTabDelegate.swift; sourceTree = "<group>"; };
 		1ABCA8CA23A5D7AA004CA7A4 /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-568h@2x.png"; sourceTree = "<group>"; };
 		1AD7975323A5D3C4000E7149 /* +UIImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "+UIImageView.swift"; sourceTree = "<group>"; };
 		1AE7BD4523A5343F000EB469 /* iCinetop.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = iCinetop.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -48,7 +57,7 @@
 		1AE7BD6D23A54F7F000EB469 /* FavoritesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoritesViewController.swift; sourceTree = "<group>"; };
 		1AE7BD6F23A54F89000EB469 /* MoviesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MoviesViewController.swift; sourceTree = "<group>"; };
 		1AE7BD7123A54FAB000EB469 /* MovieView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieView.swift; sourceTree = "<group>"; };
-		1AE7BD7323A54FBC000EB469 /* Favorite.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Favorite.swift; sourceTree = "<group>"; };
+		1AE7BD7323A54FBC000EB469 /* FavoriteView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoriteView.swift; sourceTree = "<group>"; };
 		1AE7BD7C23A551F6000EB469 /* CodeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CodeView.swift; sourceTree = "<group>"; };
 		1AE7BD7E23A55251000EB469 /* DetailsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailsView.swift; sourceTree = "<group>"; };
 		1AE7BD8023A55284000EB469 /* DetailsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailsViewController.swift; sourceTree = "<group>"; };
@@ -65,6 +74,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				1A8A241323AFFEE500C9337A /* Toast in Frameworks */,
 				1AE7BD7A23A550C8000EB469 /* Just in Frameworks */,
 				1AE7BD7723A54FFC000EB469 /* SnapKit in Frameworks */,
 			);
@@ -73,6 +83,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		1A262B6223ADA80500421ADD /* Cells */ = {
+			isa = PBXGroup;
+			children = (
+				1A262B6323ADAC7600421ADD /* FavoriteTableViewCell.swift */,
+			);
+			path = Cells;
+			sourceTree = "<group>";
+		};
 		1AE7BD3C23A5343F000EB469 = {
 			isa = PBXGroup;
 			children = (
@@ -142,6 +160,7 @@
 				1AE7BD8823A58620000EB469 /* EndPoints.swift */,
 				1AE7BD8A23A58ACA000EB469 /* GenericErrors.swift */,
 				1AD7975323A5D3C4000E7149 /* +UIImageView.swift */,
+				1A262B5E23AD925B00421ADD /* FavoriteHelper.swift */,
 			);
 			path = Helper;
 			sourceTree = "<group>";
@@ -176,7 +195,8 @@
 		1AE7BD6823A54F22000EB469 /* Favorites */ = {
 			isa = PBXGroup;
 			children = (
-				1AE7BD7323A54FBC000EB469 /* Favorite.swift */,
+				1A262B6223ADA80500421ADD /* Cells */,
+				1AE7BD7323A54FBC000EB469 /* FavoriteView.swift */,
 			);
 			path = Favorites;
 			sourceTree = "<group>";
@@ -211,6 +231,8 @@
 			isa = PBXGroup;
 			children = (
 				1AE7BD7C23A551F6000EB469 /* CodeView.swift */,
+				1A262B6023AD996300421ADD /* FavDelegate.swift */,
+				1AA5D55B23AE927900BBF4E0 /* FavTabDelegate.swift */,
 			);
 			path = Protocols;
 			sourceTree = "<group>";
@@ -234,6 +256,7 @@
 			packageProductDependencies = (
 				1AE7BD7623A54FFC000EB469 /* SnapKit */,
 				1AE7BD7923A550C8000EB469 /* Just */,
+				1A8A241223AFFEE500C9337A /* Toast */,
 			);
 			productName = iCinetop;
 			productReference = 1AE7BD4523A5343F000EB469 /* iCinetop.app */;
@@ -266,6 +289,7 @@
 			packageReferences = (
 				1AE7BD7523A54FFC000EB469 /* XCRemoteSwiftPackageReference "SnapKit" */,
 				1AE7BD7823A550C8000EB469 /* XCRemoteSwiftPackageReference "Just" */,
+				1A8A241123AFFEE400C9337A /* XCRemoteSwiftPackageReference "Toast-Swift" */,
 			);
 			productRefGroup = 1AE7BD4623A5343F000EB469 /* Products */;
 			projectDirPath = "";
@@ -300,19 +324,23 @@
 				1AE7BD8D23A5926C000EB469 /* MovieDetail.swift in Sources */,
 				1AE7BD8323A553CA000EB469 /* MovieCollectionViewCell.swift in Sources */,
 				1AE7BD5323A5343F000EB469 /* iCinetop.xcdatamodeld in Sources */,
+				1A262B6123AD996300421ADD /* FavDelegate.swift in Sources */,
 				1AE7BD7D23A551F6000EB469 /* CodeView.swift in Sources */,
+				1A262B5F23AD925B00421ADD /* FavoriteHelper.swift in Sources */,
 				1AE7BD8B23A58ACA000EB469 /* GenericErrors.swift in Sources */,
 				1AE7BD4923A5343F000EB469 /* AppDelegate.swift in Sources */,
 				1AE7BD6E23A54F7F000EB469 /* FavoritesViewController.swift in Sources */,
 				1AE7BD7F23A55251000EB469 /* DetailsView.swift in Sources */,
 				1AD7975423A5D3C4000E7149 /* +UIImageView.swift in Sources */,
 				1AE7BD7023A54F89000EB469 /* MoviesViewController.swift in Sources */,
-				1AE7BD7423A54FBC000EB469 /* Favorite.swift in Sources */,
+				1AA5D55C23AE927900BBF4E0 /* FavTabDelegate.swift in Sources */,
+				1AE7BD7423A54FBC000EB469 /* FavoriteView.swift in Sources */,
 				1AE7BD7223A54FAB000EB469 /* MovieView.swift in Sources */,
 				1AE7BD8723A57FE8000EB469 /* MovieModel.swift in Sources */,
 				1AE7BD4B23A5343F000EB469 /* SceneDelegate.swift in Sources */,
 				1A0969F523AC215C0001C827 /* FavoriteModel.swift in Sources */,
 				1AE7BD8123A55284000EB469 /* DetailsViewController.swift in Sources */,
+				1A262B6423ADAC7600421ADD /* FavoriteTableViewCell.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -504,6 +532,14 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
+		1A8A241123AFFEE400C9337A /* XCRemoteSwiftPackageReference "Toast-Swift" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/scalessec/Toast-Swift.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 5.0.1;
+			};
+		};
 		1AE7BD7523A54FFC000EB469 /* XCRemoteSwiftPackageReference "SnapKit" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/SnapKit/SnapKit.git";
@@ -523,6 +559,11 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
+		1A8A241223AFFEE500C9337A /* Toast */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 1A8A241123AFFEE400C9337A /* XCRemoteSwiftPackageReference "Toast-Swift" */;
+			productName = Toast;
+		};
 		1AE7BD7623A54FFC000EB469 /* SnapKit */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = 1AE7BD7523A54FFC000EB469 /* XCRemoteSwiftPackageReference "SnapKit" */;

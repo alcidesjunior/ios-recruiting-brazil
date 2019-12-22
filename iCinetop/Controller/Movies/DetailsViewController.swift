@@ -7,21 +7,33 @@
 //
 
 import UIKit
+import CoreData
+import Toast
 
 class DetailsViewController: UIViewController {
+    
     let screen = DetailsView()
     var details: MovieDetail?
     var movieID: Int = 0
     let movieModel = MovieModel()
+    var favIconDelegate: FavDelegate?
+    var cellNumber: Int = 0
+    
+    private var stringGenres = ""
     
     override func loadView() {
         self.view = screen
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        requestMovie()
     }
     
     override func viewDidLoad() {
         super.viewDidLoad()
         self.setupingView()
         self.requestMovie()
+        
     }
     
     private func setupingView(){
@@ -29,22 +41,63 @@ class DetailsViewController: UIViewController {
         self.view.backgroundColor = UIColor(named: "whiteCustom")
         self.navigationController?.navigationBar.barTintColor = UIColor(named: "1dblackCustom")
         self.navigationController?.navigationBar.titleTextAttributes = [.foregroundColor: UIColor(named: "whiteCustom")!]
-        let rightBarButton = UIBarButtonItem(image: UIImage(named: "star"), style: .plain, target: self, action: nil)
+        let rightBarButton = UIBarButtonItem(image: UIImage(named: "star"), style: .plain, target: self, action: #selector(favMovie))
         navigationItem.rightBarButtonItem = rightBarButton
         self.navigationController!.navigationBar.tintColor = UIColor(named: "redCustom")
     }
     
+    @objc private func favMovie(){
+        guard let details = details else {return}
+        let favoriteModel = FavoriteModel(id: details.id, genres: self.stringGenres, originalTitle: details.originalTitle, posterPath: details.posterPath, releaseDate: details.releaseDate, overview: details.overview)
+        if !favoriteModel.thisMovieExists(id: details.id){
+            favoriteModel.create{(result) in
+                switch result{
+                case .success( _):
+                    self.markAsFavorited(id: self.movieID)
+                    self.view.makeToast("Favorited")
+                case .failure(let error):
+                    print(error)
+                }
+            }
+        }else{
+            favoriteModel.delete(id: details.id){(result) in
+                switch result{
+                case .success( _):
+                    self.markAsFavorited(id: self.movieID)
+                case .failure(let error):
+                    print(error)
+                }
+            }
+        }
+    }
+    
+    func markAsFavorited(id: Int){
+        if FavoriteHelper.isFavorited(self.movieID){
+            let rightBarButton = UIBarButtonItem(image: UIImage(named: "star.fill"), style: .plain, target: self, action: #selector(favMovie))
+            navigationItem.rightBarButtonItem = rightBarButton
+            favIconDelegate?.putFavIcon(equal: true, forCell: self.cellNumber)
+        }else{
+            let rightBarButton = UIBarButtonItem(image: UIImage(named: "star"), style: .plain, target: self, action: #selector(favMovie))
+            navigationItem.rightBarButtonItem = rightBarButton
+            favIconDelegate?.putFavIcon(equal: false, forCell: self.cellNumber)
+        }
+    }
+    
     private func requestMovie(){
+        self.screen.activityIndicator.startAnimating()
         self.movieModel.show(id: self.movieID){(result) in
             switch result{
                 case .success(let movie):
                     DispatchQueue.main.async {
+                        self.screen.activityIndicator.stopAnimating()
                         self.details = movie
                         self.mountDetails()
+                        self.markAsFavorited(id: self.movieID)
                     }
                 case .failure(let error):
                     DispatchQueue.main.async {
-                        print(error)
+                        self.screen.activityIndicator.stopAnimating()
+                        self.view.makeToast(error.localizedDescription)
                     }
             }
         }
@@ -61,15 +114,15 @@ class DetailsViewController: UIViewController {
         }else{
             self.screen.imageCoverView.image = UIImage(named: "default")
         }
-        var stringGenres = ""
+        
         if let genres = details?.genres{
             var gCount = 0
             for genre in genres{
                 if gCount < genres.count{
                     if gCount == 0{
-                        stringGenres = "\(genre.name) "
+                        self.stringGenres = "\(genre.name) "
                     }else{
-                        stringGenres = "\(stringGenres), \(genre.name) "
+                        self.stringGenres = "\(self.stringGenres), \(genre.name) "
                     }
                 }
                 gCount += 1
