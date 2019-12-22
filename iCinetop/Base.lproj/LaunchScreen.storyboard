@@ -16,7 +16,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="logo" translatesAutoresizingMaskIntoConstraints="NO" id="0ns-at-09h">
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="splashimage" translatesAutoresizingMaskIntoConstraints="NO" id="0ns-at-09h">
                                 <rect key="frame" x="87" y="333.5" width="240" height="239"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="240" id="Jr1-I2-nnb"/>
@@ -38,7 +38,7 @@
         </scene>
     </scenes>
     <resources>
-        <image name="logo" width="135.5" height="123.5"/>
+        <image name="splashimage" width="135.5" height="123.5"/>
         <namedColor name="1dblackCustom">
             <color red="0.071999996900558472" green="0.071999996900558472" blue="0.072999998927116394" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
         </namedColor>
